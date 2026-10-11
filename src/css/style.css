@@ -1,0 +1,1514 @@
+/* ==========================================
+   1. VARIABLES Y CONFIGURACIÓN GENERAL
+   ========================================== */
+:root {
+    /* Estos son los cambios que hice, att. ChatGPT: nueva paleta aesthetic morada y negra. */
+    --bg-dark: #0b0811;
+    --bg-sidebar: #15101d;
+    --bg-card: #261b33;
+    --primary: #c084fc;
+    --primary-hover: #a855f7;
+    --accent: #a78bfa;
+    --text-main: #f8fafc;
+    --text-muted: #c0b3d0;
+    --border-color: #49375d;
+    --radius: 12px;
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-family);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+/* ==========================================
+   2. ESTRUCTURA DE LA APLICACIÓN (LAYOUT)
+   ========================================== */
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ==========================================
+   3. PANEL LATERAL (SIDEBAR)
+   ========================================== */
+.sidebar {
+    width: 340px;
+    min-width: 340px;
+    height: 100%;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+/* Estilo para la barra de desplazamiento interna */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+/* Marca / Título */
+.brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.brand h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.badge {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* ==========================================
+   4. ZONA DE CARGA (DRAG & DROP)
+   ========================================== */
+.upload-section h3, 
+.controls-panel h3, 
+.info-panel h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.drop-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    text-align: center;
+    background-color: rgba(15, 23, 42, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.drop-zone:hover, 
+.drop-zone.dragover {
+    border-color: var(--primary);
+    background-color: rgba(34, 197, 94, 0.05);
+}
+
+.drop-zone-content svg {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+}
+
+.drop-zone:hover .drop-zone-content svg {
+    color: var(--primary);
+}
+
+.drop-zone-content p {
+    font-size: 0.875rem;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.drop-zone-content p span {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.drop-zone-content small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Estos son los cambios que hice, att. ChatGPT: controles para cargar un resource pack local y quitarlo. */
+.resource-pack-control {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+    background: rgba(15, 23, 42, 0.35);
+}
+
+.resource-pack-button {
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    background: var(--accent);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.resource-pack-button:hover { filter: brightness(1.1); }
+
+.resource-pack-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.resource-pack-status-row small {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    overflow-wrap: anywhere;
+}
+
+.resource-pack-clear {
+    border: 0;
+    padding: 3px 7px;
+    border-radius: 5px;
+    color: var(--text-main);
+    background: var(--bg-card);
+    cursor: pointer;
+    font-size: 0.72rem;
+}
+
+/* ==========================================
+   5. PANEL DE CONTROLES E INPUTS
+   ========================================== */
+.controls-panel {
+    background-color: rgba(15, 23, 42, 0.3);
+    padding: 16px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.control-group {
+    margin-bottom: 12px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+.control-group label span {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+/* ==========================================
+   6. PANEL DE INFORMACIÓN Y PALETA
+   ========================================== */
+.info-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-list {
+    list-style: none;
+    background-color: rgba(15, 23, 42, 0.4);
+    padding: 12px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+}
+
+.stats-list li {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stats-list li:last-child {
+    margin-bottom: 0;
+}
+
+.stats-list span {
+    color: var(--text-muted);
+}
+
+.info-panel h4 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.palette-list {
+    max-height: 180px;
+    overflow-y: auto;
+    background-color: rgba(15, 23, 42, 0.4);
+    padding: 10px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.empty-msg {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Item de bloque individual (para cuando poblemos con JS) */
+.palette-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.palette-item:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================
+   7. ÁREA PRINCIPAL DEL VISOR (CANVAS 3D)
+   ========================================== */
+.viewer-container {
+    flex: 1;
+    position: relative;
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvas-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-message {
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius);
+    background-color: rgba(15, 23, 42, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.placeholder-message:hover,
+.placeholder-message.dragover {
+    border-color: var(--primary);
+    background-color: rgba(34, 197, 94, 0.08);
+}
+
+.placeholder-message svg {
+    width: 64px;
+    height: 64px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.placeholder-message:hover svg {
+    color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.placeholder-message p {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.placeholder-message p span {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.placeholder-message small {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Barra divisora arrastrable */
+#resizer {
+    width: 6px;
+    background-color: #1e293b;
+    cursor: col-resize;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    z-index: 20;
+}
+
+#resizer:hover, #resizer.is-dragging {
+    background-color: #22c55e;
+}
+
+/* Cabecera flex: el botón va al lado del título SIN encimarse */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    white-space: nowrap;
+}
+
+/* Botón hamburguesa (respetando el flujo normal del texto) */
+.toggle-menu-btn {
+    position: relative; /* ¡Sin absolute para no montarse en el texto! */
+    background-color: #1e293b;
+    color: #f8fafc;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.toggle-menu-btn:hover {
+    background-color: #334155;
+    color: #22c55e;
+}
+
+/* Animación de deslizamiento suave para el panel */
+aside.sidebar {
+    transition: margin-left 0.3s ease;
+}
+
+/* Al colapsar, desliza el panel hacia la izquierda sin ocultar el botón */
+.sidebar-collapsed {
+    margin-left: -340px !important;
+}
+
+/* Cuando el menú está cerrado, el botón se fija en la esquina */
+.sidebar-collapsed #toggleSidebarBtn {
+    position: fixed !important;
+    top: 15px;
+    left: 15px;
+    z-index: 10000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Menú lateral estilo lista limpia / minimalista */
+.accordion-section {
+    background: transparent;
+    border: none;
+    margin-bottom: 2px;
+}
+
+/* Cabecera del ítem / Título de la sección */
+.accordion-header {
+    padding: 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion-header:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.accordion-header h3 {
+    margin: 0 !important;
+    font-size: 1.05rem;
+    font-weight: 400; /* Texto estético y ligero como en la imagen */
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.accordion-header:hover h3,
+.accordion-section:not(.collapsed) .accordion-header h3 {
+    color: var(--text-main); /* Resalta el texto activo */
+    font-weight: 500;
+}
+
+.accordion-header .arrow {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.accordion-header:hover .arrow {
+    opacity: 1;
+}
+
+/* Contenido desplegable dentro del menú minimalista */
+.accordion-content {
+    max-height: 600px;
+    padding: 10px 8px 16px 8px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.accordion-section.collapsed .accordion-content {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+}
+
+.accordion-section.collapsed .arrow {
+    transform: rotate(-90deg);
+}
+
+/* Asegurar que el contenedor sea el marco relativo */
+.viewer-container {
+    position: relative !important;
+    overflow: hidden;
+}
+
+/* Tarjeta flotante con el tema oficial de MC Viewer */
+.block-info-card {
+    position: absolute !important;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    background-color: rgba(30, 41, 59, 0.92); /* Azul slate del sidebar con transparencia */
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 270px;
+    max-width: 340px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    user-select: none;
+}
+
+.block-info-card.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(12px);
+}
+
+/* Marco e icono del bloque */
+.block-icon-container {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.block-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+/* Nombre e ID técnico del bloque */
+.block-details {
+    flex: 1;
+}
+
+.block-details h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 600;
+    font-family: var(--font-family);
+}
+
+.block-details span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 3px;
+}
+
+/* Botón de cerrar X */
+.close-card-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.15s ease;
+}
+
+.close-card-btn:hover {
+    color: var(--primary); /* Verde Minecraft al pasar el cursor */
+}
+
+/* Controladores del corte de capa Y (Botones - / +) */
+.layer-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.layer-control input[type="range"] {
+    flex: 1;
+}
+
+.btn-step {
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    user-select: none;
+}
+
+.btn-step:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-step:active {
+    transform: scale(0.92);
+}
+
+/* Estos son los cambios que hice, att. ChatGPT: acabados violeta, contraste suave y brillos para el tema aesthetic. */
+body, html {
+    background:
+        radial-gradient(ellipse at 12% 0%, rgba(126, 34, 206, 0.12), transparent 38%),
+        var(--bg-dark);
+}
+
+.sidebar {
+    background: linear-gradient(180deg, #191222 0%, var(--bg-sidebar) 55%, #100c17 100%);
+    border-right-color: rgba(192, 132, 252, 0.2);
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.22);
+}
+
+.brand {
+    border-bottom-color: rgba(192, 132, 252, 0.2);
+}
+
+.brand h2 {
+    color: #f3e8ff;
+    text-shadow: 0 0 22px rgba(192, 132, 252, 0.22);
+}
+
+.badge {
+    background-color: rgba(192, 132, 252, 0.12);
+    border-color: rgba(192, 132, 252, 0.32);
+}
+
+.drop-zone {
+    background: rgba(10, 7, 16, 0.48);
+    border-color: rgba(167, 139, 250, 0.38);
+}
+
+.drop-zone:hover,
+.drop-zone.dragover {
+    background-color: rgba(168, 85, 247, 0.1);
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.12);
+}
+
+.resource-pack-control,
+.controls-panel {
+    background: rgba(24, 17, 34, 0.72);
+    border-color: rgba(192, 132, 252, 0.14);
+}
+
+.resource-pack-button,
+.btn-step {
+    background: linear-gradient(135deg, #c084fc, #8b5cf6);
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.22);
+}
+
+.resource-pack-button:hover,
+.btn-step:hover {
+    background: linear-gradient(135deg, #d8b4fe, #a855f7);
+    box-shadow: 0 5px 18px rgba(168, 85, 247, 0.32);
+}
+
+.resource-pack-clear {
+    border: 1px solid rgba(192, 132, 252, 0.18);
+}
+
+.viewer-container {
+    background: radial-gradient(circle at 50% 42%, #21142f 0%, #120d1b 52%, #09070e 100%);
+}
+
+.placeholder-message {
+    border-color: rgba(192, 132, 252, 0.35);
+    background: rgba(20, 14, 29, 0.72);
+}
+
+.accordion-section:not(.collapsed) {
+    background: rgba(168, 85, 247, 0.055);
+    border-radius: 9px;
+}
+
+.accordion-header:hover {
+    background-color: rgba(192, 132, 252, 0.09);
+}
+
+.accordion-header:hover h3,
+.accordion-section:not(.collapsed) .accordion-header h3 {
+    color: #ead7ff;
+}
+
+.block-info-card {
+    background-color: rgba(27, 19, 39, 0.94);
+    border-color: rgba(192, 132, 252, 0.32);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.62), 0 0 24px rgba(139, 92, 246, 0.1);
+}
+
+.block-icon-container {
+    background-color: rgba(12, 8, 18, 0.78);
+    border-color: rgba(192, 132, 252, 0.24);
+}
+
+input[type="range"],
+input[type="checkbox"] {
+    accent-color: #c084fc;
+}
+
+:focus-visible {
+    outline: 2px solid #c084fc;
+    outline-offset: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #654581;
+}
+
+#resizer:hover {
+    background-color: #a855f7;
+}
+
+/* Estos son los cambios que hice, att. ChatGPT: identidad visual propia de MC Viewer y una portada de bienvenida más cuidada. */
+.app-container {
+    background: #09070d;
+    border: 1px solid rgba(211, 180, 255, 0.12);
+}
+
+.sidebar {
+    background-color: #130e19;
+    background-image:
+        radial-gradient(ellipse at 0% 0%, rgba(139, 92, 246, 0.13), transparent 45%),
+        repeating-linear-gradient(0deg, transparent 0 31px, rgba(215, 190, 255, 0.018) 31px 32px);
+    padding: 20px 18px;
+}
+
+.sidebar-header {
+    padding: 2px 2px 18px;
+    margin-bottom: 9px;
+    border-bottom: 1px solid rgba(205, 175, 245, 0.13);
+}
+
+.brand-copy h2 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    color: #f4eaff;
+}
+
+.brand-caption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+    color: #a99ab9;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.brand-caption i {
+    width: 5px;
+    height: 5px;
+    background: #c084fc;
+    box-shadow: 0 0 9px #c084fc;
+    transform: rotate(45deg);
+}
+
+.toggle-menu-btn {
+    background: linear-gradient(145deg, #2b2038, #1c1525) !important;
+    border-color: rgba(202, 164, 255, 0.2) !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.07), 0 5px 14px rgba(0, 0, 0, 0.22);
+}
+
+.toggle-menu-btn:hover {
+    background: #39264c !important;
+    color: #e9cfff !important;
+}
+
+.accordion-section {
+    margin-bottom: 5px;
+}
+
+.accordion-header {
+    padding: 10px 11px;
+    border: 1px solid transparent;
+}
+
+.accordion-section:not(.collapsed) .accordion-header {
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.12), rgba(168, 85, 247, 0.025));
+    border-color: rgba(192, 132, 252, 0.13);
+}
+
+.accordion-header h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+}
+
+.accordion-header .arrow {
+    color: #bd9bdc;
+}
+
+.drop-zone {
+    padding: 21px 14px;
+    border-radius: 13px;
+    background-image: linear-gradient(145deg, rgba(26, 18, 36, 0.82), rgba(12, 9, 17, 0.82));
+}
+
+.resource-pack-control {
+    border-radius: 13px;
+    background: linear-gradient(145deg, rgba(42, 29, 57, 0.72), rgba(22, 16, 30, 0.82));
+}
+
+.resource-pack-button,
+#openMaterialsPageBtn,
+#exportPdfBtn {
+    border-radius: 9px !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #bd79f5, #8652d8) !important;
+    box-shadow: 0 5px 15px rgba(125, 70, 190, 0.2), inset 0 1px rgba(255, 255, 255, 0.2);
+}
+
+#exportPdfBtn {
+    background: linear-gradient(135deg, #8c69c9, #64469b) !important;
+}
+
+#openMaterialsPageBtn:hover,
+#exportPdfBtn:hover,
+.resource-pack-button:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+}
+
+.viewer-container {
+    background-color: #0c0911;
+    background-image:
+        radial-gradient(ellipse at 50% 46%, rgba(105, 63, 145, 0.2), transparent 58%),
+        linear-gradient(rgba(200, 170, 240, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 170, 240, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 50% 42%, #1c1426 0%, #0d0a12 72%);
+    background-size: auto, 32px 32px, 32px 32px, auto;
+}
+
+.placeholder-message {
+    position: relative;
+    width: min(720px, calc(100% - 64px));
+    height: min(510px, calc(100% - 64px));
+    min-height: 390px;
+    margin: 32px;
+    overflow: hidden;
+    border: 1px solid rgba(207, 174, 246, 0.2);
+    border-radius: 20px;
+    background:
+        radial-gradient(ellipse at 50% 32%, rgba(127, 81, 168, 0.18), transparent 53%),
+        linear-gradient(145deg, rgba(28, 20, 39, 0.96), rgba(14, 10, 20, 0.97));
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255, 255, 255, 0.055);
+}
+
+.placeholder-message::before,
+.placeholder-message::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.placeholder-message::before {
+    width: 110px;
+    height: 110px;
+    top: -66px;
+    right: -55px;
+    border: 1px solid rgba(214, 176, 255, 0.2);
+    transform: rotate(45deg);
+    box-shadow: 0 0 0 13px rgba(181, 128, 238, 0.025), 0 0 0 26px rgba(181, 128, 238, 0.02);
+}
+
+.placeholder-message::after {
+    width: 6px;
+    height: 6px;
+    top: 25px;
+    left: 25px;
+    background: #d2a7ff;
+    box-shadow: 10px 0 #8058a8, 0 10px #8058a8, 10px 10px #d2a7ff;
+    opacity: 0.75;
+}
+
+.placeholder-message svg {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 23px;
+    padding: 10px;
+    box-sizing: content-box;
+    border: 1px solid rgba(204, 164, 249, 0.22);
+    border-radius: 17px;
+    color: #d3aaff;
+    background: linear-gradient(145deg, rgba(167, 117, 218, 0.18), rgba(82, 52, 111, 0.14));
+    filter: drop-shadow(0 0 16px rgba(188, 133, 245, 0.2));
+}
+
+.workspace-kicker {
+    margin-bottom: 12px;
+    color: #bd91e7;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.placeholder-message h1 {
+    margin-bottom: 16px;
+    color: #f5edfc;
+    font-size: clamp(2rem, 4vw, 3.15rem);
+    font-weight: 600;
+    letter-spacing: -0.055em;
+    line-height: 1.05;
+}
+
+.placeholder-message h1 em {
+    color: #c99af4;
+    font-style: normal;
+}
+
+.placeholder-message p {
+    color: #e4d9ef;
+    font-size: 0.98rem;
+}
+
+.placeholder-message p span {
+    color: #d2a7ff;
+    text-decoration-color: rgba(210, 167, 255, 0.5);
+    text-underline-offset: 4px;
+}
+
+.placeholder-message small {
+    color: #a99bb7;
+}
+
+.workspace-formats {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 26px;
+    padding: 9px 13px;
+    border: 1px solid rgba(206, 173, 242, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.025);
+    color: #c7b5d8;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+}
+
+.workspace-formats b {
+    color: #a977d2;
+    font-size: 0.55rem;
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        width: 300px;
+        min-width: 300px;
+        padding: 15px 13px;
+    }
+
+    .placeholder-message {
+        width: calc(100% - 28px);
+        height: min(460px, calc(100% - 28px));
+        min-height: 340px;
+        margin: 14px;
+        padding: 20px;
+    }
+
+    .workspace-formats {
+        gap: 7px;
+        font-size: 0.5rem;
+    }
+}
+
+/* Estos son los cambios que hice, att. ChatGPT: estilo clásico más limpio y portada expandible al ocultar el menú. */
+.sidebar {
+    background: #15111b;
+    background-image: none;
+    box-shadow: none;
+    border-right-color: rgba(192, 132, 252, 0.16);
+}
+
+.sidebar-header {
+    border-bottom-color: rgba(192, 132, 252, 0.14);
+}
+
+.brand-caption {
+    color: #a99bb5;
+    letter-spacing: 0.12em;
+}
+
+.brand-caption i {
+    box-shadow: none;
+}
+
+.accordion-section:not(.collapsed) .accordion-header {
+    background: rgba(168, 85, 247, 0.07);
+    border-color: transparent;
+}
+
+.accordion-header:hover {
+    background-color: rgba(192, 132, 252, 0.055);
+}
+
+.resource-pack-button,
+#openMaterialsPageBtn,
+#exportPdfBtn,
+.btn-step {
+    background: #8055a6 !important;
+    box-shadow: none;
+}
+
+#exportPdfBtn {
+    background: #554269 !important;
+}
+
+.resource-pack-button:hover,
+#openMaterialsPageBtn:hover,
+#exportPdfBtn:hover,
+.btn-step:hover {
+    background: #946ab8 !important;
+    box-shadow: none;
+    transform: none;
+}
+
+.viewer-container {
+    background-color: #0d0a11;
+    background-image:
+        radial-gradient(ellipse at center, rgba(93, 64, 116, 0.12), transparent 65%),
+        radial-gradient(circle at 50% 42%, #17121d 0%, #0d0a11 78%);
+}
+
+.placeholder-message {
+    width: min(720px, calc(100% - 64px));
+    height: min(510px, calc(100% - 64px));
+    border: 1px solid rgba(203, 174, 228, 0.17);
+    border-radius: 15px;
+    background: rgba(22, 17, 28, 0.92);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+    transition: width 0.35s ease, height 0.35s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.placeholder-message::before,
+.placeholder-message::after {
+    display: none;
+}
+
+.placeholder-message svg {
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    margin-bottom: 20px;
+    border-color: rgba(192, 132, 252, 0.18);
+    border-radius: 13px;
+    background: rgba(168, 85, 247, 0.08);
+    filter: none;
+}
+
+.workspace-kicker {
+    color: #b998d3;
+    letter-spacing: 0.15em;
+}
+
+.placeholder-message h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.65rem);
+    font-weight: 550;
+    letter-spacing: -0.04em;
+}
+
+.placeholder-message h1 em {
+    color: #c19add;
+}
+
+.workspace-formats {
+    margin-top: 22px;
+    border-color: rgba(203, 174, 228, 0.12);
+    background: rgba(255, 255, 255, 0.018);
+    color: #b7a9c2;
+}
+
+.workspace-formats b {
+    color: #9a7cb0;
+}
+
+.app-container.sidebar-hidden .placeholder-message {
+    width: calc(100% - 56px);
+    height: calc(100% - 56px);
+    max-width: none;
+    max-height: none;
+    border-color: rgba(203, 174, 228, 0.13);
+    background: rgba(22, 17, 28, 0.78);
+    box-shadow: none;
+}
+
+/* Estos son los cambios que hice, att. ChatGPT: fondo trasero liso con un degradado discreto, sin patrón de cuadros. */
+.viewer-container {
+    background: radial-gradient(ellipse at center, #17131b 0%, #100d14 72%, #0d0a10 100%) !important;
+}
+
+#canvas-container {
+    background: transparent;
+}
+
+/* Estos son los cambios que hice, att. ChatGPT: propuse filas de navegación con iconos discretos y chevrón claro. */
+.accordion-section {
+    margin: 3px 0;
+}
+
+.accordion-header {
+    min-height: 46px;
+    padding: 7px 10px;
+    gap: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #d9cde4;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.accordion-header::before {
+    content: "↥";
+    flex: 0 0 29px;
+    width: 29px;
+    height: 29px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(201, 169, 226, 0.14);
+    border-radius: 8px;
+    background: rgba(201, 169, 226, 0.055);
+    color: #c4a5df;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.accordion-section:nth-of-type(2) .accordion-header::before {
+    content: "◉";
+    font-size: 13px;
+}
+
+.accordion-section:nth-of-type(3) .accordion-header::before {
+    content: "i";
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.accordion-section:nth-of-type(4) .accordion-header::before {
+    content: "▦";
+    font-size: 14px;
+}
+
+.accordion-header h3 {
+    flex: 1;
+    color: #d6c9e0;
+    font-size: 0.88rem;
+    font-weight: 550;
+}
+
+.accordion-header:hover {
+    border-color: rgba(201, 169, 226, 0.1);
+    background: rgba(201, 169, 226, 0.045);
+}
+
+.accordion-section:not(.collapsed) .accordion-header {
+    border-color: rgba(190, 145, 226, 0.17);
+    background: rgba(137, 89, 174, 0.1);
+}
+
+.accordion-section:not(.collapsed) .accordion-header::before {
+    border-color: rgba(196, 165, 223, 0.25);
+    background: rgba(164, 112, 204, 0.14);
+    color: #e0c1fa;
+}
+
+.accordion-header .arrow {
+    flex: 0 0 25px;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(201, 169, 226, 0.11);
+    border-radius: 7px;
+    background: rgba(201, 169, 226, 0.035);
+    color: #a994bb;
+    font-size: 0;
+    opacity: 0.85;
+    transform: none;
+    transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.accordion-header .arrow::before {
+    content: "›";
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1;
+    transform: translateY(-1px);
+}
+
+.accordion-section.collapsed .accordion-header .arrow {
+    transform: none;
+}
+
+.accordion-section:not(.collapsed) .accordion-header .arrow {
+    transform: rotate(90deg);
+    border-color: rgba(201, 169, 226, 0.2);
+    background: rgba(201, 169, 226, 0.075);
+    color: #e1c8f5;
+}
+
+@media (max-width: 700px) {
+    .app-container.sidebar-hidden .placeholder-message {
+        width: calc(100% - 28px);
+        height: calc(100% - 28px);
+    }
+}
+
+.viewer-home-link {
+    margin-left: auto;
+    color: #bca0d8;
+    text-decoration: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    opacity: .8;
+    transition: opacity .16s ease, color .16s ease;
+}
+
+/* Ajustes rápidos del visor junto a la hamburguesa. */
+.settings-toggle-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border: 1px solid rgba(202, 164, 255, 0.2);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #2b2038, #1c1525);
+    color: #f8fafc;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.07), 0 5px 14px rgba(0, 0, 0, 0.22);
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.settings-toggle-btn:hover,
+.settings-toggle-btn[aria-expanded="true"] {
+    background: #39264c;
+    color: #e9cfff;
+}
+
+.sidebar-collapsed #settingsToggleBtn {
+    position: fixed;
+    top: 15px;
+    left: 61px;
+    z-index: 10000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.settings-panel {
+    position: fixed;
+    top: 62px;
+    left: 15px;
+    z-index: 10001;
+    width: 240px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: rgba(24, 18, 31, 0.98);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(12px);
+}
+
+.settings-panel[hidden],
+.fps-display[hidden] {
+    display: none !important;
+}
+
+.settings-panel h3 {
+    margin-bottom: 14px;
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+.settings-option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.settings-option input {
+    accent-color: var(--primary);
+}
+
+.settings-option-group {
+    margin-top: 11px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.settings-tab-panel[data-settings-panel="general"] > .settings-field {
+    margin: 18px 0 0;
+}
+.appearance-picker {
+    min-width: 0;
+    margin: 20px 0 0;
+    padding: 0;
+    border: 0;
+}
+.appearance-picker legend {
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: .9rem;
+    font-weight: 700;
+}
+.appearance-theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+.appearance-theme-card {
+    position: relative;
+    display: grid;
+    gap: 9px;
+    min-width: 0;
+    padding: 9px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+.appearance-theme-card[hidden] { display: none; }
+.appearance-theme-card:hover { border-color: var(--primary); transform: translateY(-1px); }
+.appearance-theme-card:focus-within { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.appearance-theme-card.is-selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 24%, transparent);
+}
+.appearance-theme-card input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    outline: 0;
+}
+.appearance-theme-preview {
+    display: grid;
+    grid-template-columns: 26% 1fr;
+    gap: 7px;
+    min-height: 82px;
+    padding: 8px;
+    overflow: hidden;
+    border: 1px solid var(--preview-line);
+    border-radius: 8px;
+    background: var(--preview-bg);
+}
+.preview-light { --preview-bg: #f1f4f1; --preview-panel: #fff; --preview-line: #d4ddd4; --preview-accent: #287b3c; }
+.preview-dark { --preview-bg: #090a09; --preview-panel: #1b1d1b; --preview-line: #353a35; --preview-accent: #78d58b; }
+.preview-admin { --preview-bg: #100e14; --preview-panel: #261b33; --preview-line: #49375d; --preview-accent: #c084fc; }
+.preview-sidebar { border: 1px solid var(--preview-line); border-radius: 4px; background: var(--preview-panel); }
+.preview-content { display: grid; align-content: center; gap: 7px; padding: 7px; border: 1px solid var(--preview-line); border-radius: 4px; background: var(--preview-panel); }
+.preview-content i,
+.preview-content b { display: block; height: 5px; border-radius: 5px; background: var(--preview-line); }
+.preview-content i:first-child { width: 72%; background: var(--preview-accent); }
+.preview-content i:nth-child(2) { width: 90%; }
+.preview-content b { width: 48%; background: var(--preview-accent); }
+.appearance-theme-name { font-size: .86rem; font-weight: 650; }
+.settings-tab-panel[data-settings-panel="general"] > .settings-field > span,
+.settings-tab-panel[data-settings-panel="general"] .settings-option > span {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.settings-tab-panel[data-settings-panel="general"] .settings-option {
+    margin-top: 14px;
+    color: var(--text-main);
+}
+.settings-tab-panel[data-settings-panel="general"] .settings-option .settings-tab-icon {
+    color: var(--primary);
+}
+.settings-tab-panel[data-settings-panel="general"] > .settings-note {
+    margin: 5px 0 10px;
+}
+.settings-general-reset {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+.settings-general-reset .settings-note {
+    margin: 8px 0 0;
+}
+.settings-shortcut-info {
+    margin-top: 6px !important;
+}
+.settings-shortcut-info kbd {
+    display: inline-grid;
+    min-width: 24px;
+    min-height: 24px;
+    place-items: center;
+    margin-right: 5px;
+    border: 1px solid var(--control-border);
+    border-radius: 5px;
+    background: var(--control-bg);
+    color: var(--text-main);
+    font: inherit;
+}
+
+.settings-group-label {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--text-main);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.fps-display {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    z-index: 15;
+    padding: 6px 9px;
+    border: 1px solid rgba(202, 164, 255, 0.2);
+    border-radius: 7px;
+    background: rgba(15, 10, 20, 0.78);
+    color: #e9cfff;
+    font: 600 0.8rem/1.2 var(--font-family);
+    pointer-events: none;
+}
+.viewer-home-link:hover { color: #ead8ff; opacity: 1; }
+
+.shader-control {
+    display: grid;
+    gap: 6px;
+    margin-top: 8px;
+}
+.shader-toggle-button {
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 10px;
+    border: 1px solid rgba(192, 132, 252, .32);
+    border-radius: 7px;
+    background: rgba(192, 132, 252, .075);
+    color: #e8d6fb;
+    font: 600 .76rem var(--font-family);
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.shader-toggle-button:hover { border-color: rgba(192, 132, 252, .7); background: rgba(192, 132, 252, .14); }
+.shader-toggle-button[aria-pressed="true"] { border-color: #bd91e8; background: #bd91e8; color: #19131f; }
+.shader-control small { color: var(--text-muted); font-size: .65rem; line-height: 1.4; }
+html[data-ui-scale="large"] { font-size: 112.5%; }
+html[data-reduce-motion="true"] *,
+html[data-reduce-motion="true"] *::before,
+html[data-reduce-motion="true"] *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+.settings-modal-nav [role="tab"] { display: flex; align-items: center; gap: 8px; }
+.settings-tab-icon { width: 16px; height: 16px; flex: 0 0 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.settings-note { color: var(--text-muted); font-size: .82rem; line-height: 1.5; }

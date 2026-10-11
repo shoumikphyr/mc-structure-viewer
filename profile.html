@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#100e14">
+    <meta name="description" content="Perfil y construcciones compartidas de MC Viewer.">
+    <title>Perfil — MC Viewer</title>
+    <script src="src/js/theme-init.js"></script>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/home.css">
+    <link rel="stylesheet" href="src/css/profile.css">
+    <link rel="stylesheet" href="src/css/admin-settings.css">
+    <link rel="stylesheet" href="src/css/theme_light.css">
+    <link rel="stylesheet" href="src/css/theme_dark.css">
+    <link rel="stylesheet" href="src/css/theme_admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-page profile-page">
+    <div class="profile-shell">
+        <header class="profile-header">
+            <a class="home-brand" href="index.html" aria-label="MC Viewer inicio"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>MC <b>Viewer</b></span></a>
+            <nav class="profile-nav site-primary-nav" aria-label="Navegación principal"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/></svg><span>Inicio</span></a><a href="explore.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/></svg><span>Explorar</span></a><a href="materials.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg><span>Materiales</span></a><a href="#perfil" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span>Mi perfil</span></a><button class="main-settings-nav-button" id="mainSettingsToggleBtn" data-settings-open type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="settingsPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span>Configuración</span></button><a href="#myWorkshop" id="myProfileLink" hidden>Mi espacio</a></nav>
+            <button class="profile-logout" id="logoutButton" type="button" hidden>Cerrar sesión <span aria-hidden="true">↗</span></button>
+        </header>
+
+        <main>
+            <p class="profile-status" id="pageStatus" role="status">Cargando perfil…</p>
+            <div id="profileContent" hidden>
+                <section class="profile-hero" id="perfil">
+                    <div class="profile-avatar" id="profileAvatar" aria-hidden="true">M</div>
+                    <div class="profile-intro">
+                        <span class="profile-kicker"><span class="eyebrow-dot"></span> PERFIL DE CONSTRUCTOR</span><span class="profile-role-pill" id="profileModeBadge">USUARIO</span>
+                        <h1><span id="profileUsername">Constructor</span><span class="profile-period">.</span></h1>
+                        <p id="profileSubtitle">Construcciones compartidas con la comunidad.</p>
+                    </div>
+                    <button class="profile-share" id="shareProfile" type="button">Compartir perfil <span aria-hidden="true">↗</span></button>
+                </section>
+
+                <section class="profile-section" id="publicWorks" aria-labelledby="publicWorksTitle">
+                    <div class="profile-section-heading"><div><span class="profile-kicker">GALERÍA</span><h2 id="publicWorksTitle">Construcciones públicas</h2></div><span class="profile-count" id="publicCount">0</span></div>
+                    <div class="structure-grid" id="profileStructures"></div>
+                    <p class="profile-empty" id="profileEmpty" hidden>Este perfil todavía no tiene construcciones públicas.</p>
+                </section>
+
+                <section class="profile-section workshop-section" id="myWorkshop" aria-labelledby="workshopTitle" hidden>
+                    <div class="profile-section-heading"><div><span class="profile-kicker">SOLO TÚ PUEDES VER ESTA BIBLIOTECA</span><h2 id="workshopTitle">Mi taller</h2></div><span class="profile-count" id="privateCount">0</span></div>
+                    <section class="creator-mode-card" id="creatorModeCard" aria-labelledby="creatorModeTitle">
+                        <div><span class="profile-kicker">TU MODALIDAD</span><h3 id="creatorModeTitle">Modo creador</h3><p id="creatorModeDescription">Actívalo desde tu perfil para identificar tu cuenta como creador. Tu taller ya permite subir, organizar y compartir estructuras.</p><p class="profile-status" id="creatorModeStatus" role="status" aria-live="polite"></p></div>
+                        <button class="profile-setting-button" id="creatorModeButton" type="button">Activar modo creador</button>
+                    </section>
+                    <section class="admin-profile-note" id="adminProfileNote" hidden><span class="profile-kicker">ESPACIO ADMINISTRATIVO</span><h3>Perfil de administrador</h3><p>Los permisos administrativos se validan en el servidor. La cuenta conserva su segundo factor obligatorio.</p></section>
+                    <div class="upload-panel">
+                        <label class="profile-upload" for="profileUpload"><span class="upload-plus" aria-hidden="true">＋</span><span><strong>Sube una construcción</strong><small>Archivos .schem o .litematic · máximo 64 MB</small></span><span class="profile-upload-button">Elegir archivo</span><input id="profileUpload" type="file" accept=".schem,.litematic"></label>
+                        <label class="profile-visibility"><input id="publishUpload" type="checkbox" checked><span>Publicar en el buscador y en mi perfil</span></label>
+                        <p class="profile-status upload-status" id="uploadStatus" role="status"></p>
+                    </div>
+                    <div class="structure-grid owner-grid" id="ownerStructures"></div>
+                    <p class="profile-empty" id="ownerEmpty" hidden>Aún no has subido construcciones. Cuando lo hagas, aparecerán aquí.</p>
+                </section>
+
+            </div>
+
+            <section class="profile-gate" id="profileGate" hidden>
+                <span class="gate-symbol" aria-hidden="true">◈</span>
+                <h1 id="gateTitle">Inicia sesión para abrir tu perfil.</h1>
+                <p id="gateMessage">Tu espacio reúne tus estructuras y las que decidas compartir con la comunidad.</p>
+                <a class="button button-primary" href="index.html#cuenta">Ir a mi cuenta <span aria-hidden="true">↗</span></a>
+            </section>
+        </main>
+
+        <footer class="profile-footer"><a class="home-brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>MC <b>Viewer</b></span></a><span>Hecho por <strong>shoumikphyr</strong></span><a href="viewer.html">Abrir visor <span aria-hidden="true">↗</span></a></footer>
+        
+    </div>
+    <script src="src/js/settings-component.js"></script>
+    <script src="src/js/theme.js"></script>
+    <script src="src/js/session-menu.js"></script>
+
+    <script src="src/js/pages/profile.js"></script>
+</body>
+</html>

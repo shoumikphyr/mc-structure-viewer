@@ -1,0 +1,136 @@
+.owner-admin-settings {
+    margin-top: 22px;
+    padding: 18px;
+    border: 1px solid var(--home-line, var(--border-color));
+    border-radius: 10px;
+    background: var(--home-panel-raised, var(--bg-card));
+}
+.owner-admin-settings h4,
+.owner-transfer-form h5 { margin: 0 0 8px; color: var(--home-text, var(--text-main)); }
+.owner-admin-settings .settings-description { margin: 0 0 12px; }
+.owner-admin-status { min-height: 1.25em; margin: 8px 0; color: var(--home-muted, var(--text-muted)); font-size: .86rem; }
+.owner-admin-status.is-error { color: #c43e4e; }
+.owner-admin-status.is-success { color: var(--primary, #287b3c); }
+.owner-user-browser { display: grid; gap: 9px; padding: 9px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 9px; background: var(--home-panel, var(--bg-sidebar)); }
+.owner-user-pinned:empty { display: none; }
+.owner-user-pinned .owner-user-row-protected { grid-template-columns: minmax(0,1fr) auto; margin: 0; background: var(--home-panel-raised, var(--bg-card)); }
+.owner-user-edit-row { display: grid; min-width: 0; grid-template-columns: minmax(120px,1fr) minmax(120px,.7fr) auto; align-items: center; gap: 10px; }
+.owner-user-search-row { display: flex; min-width: 0; min-height: 44px; align-items: center; gap: 9px; padding: 5px 11px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 8px; background: var(--home-panel, var(--bg-sidebar)); color: var(--primary); }
+.owner-user-search-row svg { width: 18px; height: 18px; flex: 0 0 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.owner-user-search-row input { width: 100%; min-width: 0; min-height: 34px; border: 0; outline: 0; background: transparent; color: var(--text-main); font: inherit; }
+.owner-user-search-row:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+.owner-user-list { display: grid; gap: 6px; max-height: 340px; overflow-y: auto; padding: 0 3px 0 0; }
+.owner-user-match { width: 100%; min-height: 42px; padding: 8px 12px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 7px; background: var(--home-panel-raised, var(--bg-card)); color: var(--home-text, var(--text-main)); font: inherit; text-align: left; cursor: pointer; }
+.owner-user-match:hover, .owner-user-match:focus-visible { border-color: var(--primary); background: var(--control-hover); outline: 0; }
+.owner-user-empty { margin: 0; padding: 14px; border: 1px dashed var(--home-line, var(--border-color)); border-radius: 8px; color: var(--home-muted, var(--text-muted)); font-size: .84rem; text-align: center; }
+.owner-user-row { display: grid; grid-template-columns: minmax(120px,1fr) minmax(120px,.7fr) auto; align-items: center; gap: 10px; padding: 9px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 7px; background: var(--home-panel, var(--bg-sidebar)); }
+.owner-user-name { min-width: 0; overflow-wrap: anywhere; color: var(--home-text, var(--text-main)); font-weight: 600; }
+.owner-user-role { color: var(--home-muted, var(--text-muted)); font-size: .82rem; }
+.owner-user-row select,
+.owner-transfer-form input,
+.owner-transfer-form select { min-width: 0; width: 100%; }
+.owner-user-row button,
+.owner-transfer-form button { min-height: 34px; }
+.owner-transfer-form { display: grid; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--home-line, var(--border-color)); }
+.owner-transfer-form label { display: grid; gap: 6px; color: var(--home-text, var(--text-main)); font-size: .88rem; }
+.owner-transfer-form [data-owner-transfer-confirm] { display: grid; gap: 12px; }
+.settings-modal .security-card { margin-top: 16px; padding: 18px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 9px; background: var(--home-panel-raised, var(--bg-card)); }
+.settings-modal .security-card h4 { margin: 0 0 12px; color: var(--home-text, var(--text-main)); }
+.settings-modal .security-card .library-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.settings-modal .security-card .library-head span { color: var(--home-muted, var(--text-muted)); font-size: .78rem; overflow-wrap: anywhere; }
+.settings-modal .security-form { display: grid; gap: 9px; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--home-line, var(--border-color)); }
+.settings-modal .security-form label,
+.settings-modal .security-mfa p { color: var(--home-text, var(--text-main)); font-size: .85rem; font-weight: 600; }
+.settings-modal .security-form input { width: 100%; min-height: 40px; border: 1px solid var(--control-border); border-radius: 6px; padding: 0 11px; background: var(--control-bg); color: var(--text-main); font: inherit; }
+.settings-modal .security-form input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.settings-modal .security-form .button { justify-self: start; min-height: 38px; padding: 0 12px; border: 1px solid var(--control-border); border-radius: 7px; background: var(--control-bg); color: var(--text-main); font: inherit; cursor: pointer; }
+.settings-modal .security-form .button:hover { border-color: var(--primary); background: var(--control-hover); }
+.settings-modal .security-form .text-button { width: fit-content; border: 0; background: transparent; color: var(--text-muted); font: inherit; cursor: pointer; }
+.settings-modal .form-note { min-height: 1.2em; color: var(--text-muted); font-size: .82rem; }
+.settings-modal .form-note.error { color: #c43e4e; }
+.settings-modal .form-note.success { color: var(--primary); }
+.account-session-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 16px 0 20px; padding: 15px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 9px; background: var(--home-panel-raised, var(--bg-card)); color: var(--home-text, var(--text-main)); }
+.account-session-card > div { min-width: 0; }
+.account-session-card strong { display: block; margin-top: 5px; overflow-wrap: anywhere; font-size: 1rem; }
+.account-session-card p { margin: 5px 0 0; color: var(--home-muted, var(--text-muted)); font-size: .8rem; line-height: 1.45; }
+.account-session-label { color: var(--primary); font-size: .67rem; font-weight: 800; letter-spacing: .12em; }
+.account-session-status { flex: 0 0 auto; padding: 5px 8px; border: 1px solid var(--home-line, var(--border-color)); border-radius: 999px; color: var(--primary); font-size: .72rem; font-weight: 700; }
+@media (max-width: 480px) { .account-session-card { align-items: flex-start; flex-direction: column; } }
+.settings-floating-trigger { position: fixed; top: 16px; right: 20px; z-index: 19000; }
+@media (max-width: 600px) {
+    .owner-admin-settings { padding: 13px; }
+    .owner-user-row { grid-template-columns: minmax(0,1fr) auto; }
+    .owner-user-row select,
+    .owner-user-row button { grid-column: 1 / -1; width: 100%; }
+    .owner-user-edit-row { grid-template-columns: minmax(0,1fr) auto; }
+    .owner-user-search-row { grid-column: 1 / -1; }
+    .owner-user-edit-row select { min-width: 0; }
+    .owner-user-edit-row > button { width: 100%; }
+}
+
+/* Controles más compactos y táctiles para la gestión de cuentas y la transferencia. */
+.settings-modal .owner-admin-settings .owner-user-row select,
+.settings-modal .owner-admin-settings .owner-user-edit-row select,
+.settings-modal .owner-admin-settings .owner-transfer-form select,
+.settings-modal .owner-admin-settings .owner-transfer-form input {
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--control-border);
+    border-radius: 8px;
+    background: var(--control-bg);
+    color: var(--text-main);
+    font: inherit;
+    transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+.settings-modal .owner-admin-settings .owner-user-row select:focus-visible,
+.settings-modal .owner-admin-settings .owner-user-edit-row select:focus-visible,
+.settings-modal .owner-admin-settings .owner-transfer-form select:focus-visible,
+.settings-modal .owner-admin-settings .owner-transfer-form input:focus-visible {
+    border-color: var(--primary);
+    outline: 0;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+.settings-modal .owner-admin-settings .owner-transfer-form { gap: 8px; }
+.settings-modal .owner-admin-settings .owner-transfer-form label { gap: 7px; }
+.settings-modal .owner-admin-settings .owner-user-row > button.settings-link-button:not(:disabled),
+.settings-modal .owner-admin-settings .owner-user-edit-row > button.settings-link-button:not(:disabled),
+.settings-modal .owner-admin-settings .owner-transfer-form > button.settings-link-button:not(:disabled),
+.settings-modal .owner-admin-settings .owner-transfer-form [data-owner-transfer-confirm] > button.settings-link-button:not(:disabled) {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    gap: 8px;
+    margin: 0;
+    padding: 0 15px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--bg-sidebar, #fff);
+    font-family: inherit;
+    font-size: .84rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 3px 10px color-mix(in srgb, var(--primary) 18%, transparent);
+    transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
+}
+.settings-modal .owner-admin-settings .owner-user-row > button.settings-link-button:not(:disabled):hover,
+.settings-modal .owner-admin-settings .owner-user-edit-row > button.settings-link-button:not(:disabled):hover,
+.settings-modal .owner-admin-settings .owner-transfer-form > button.settings-link-button:not(:disabled):hover,
+.settings-modal .owner-admin-settings .owner-transfer-form [data-owner-transfer-confirm] > button.settings-link-button:not(:disabled):hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow: 0 5px 14px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+.settings-modal .owner-admin-settings .owner-user-row > button.settings-link-button:disabled,
+.settings-modal .owner-admin-settings .owner-user-edit-row > button.settings-link-button:disabled,
+.settings-modal .owner-admin-settings .owner-transfer-form button.settings-link-button:disabled {
+    margin: 0;
+    opacity: .58;
+    cursor: wait;
+}
+.settings-modal .owner-admin-settings .owner-user-row { gap: 12px; padding: 10px 12px; }
+.settings-modal .owner-admin-settings .owner-user-name { font-size: .94rem; }
+.settings-modal .owner-admin-settings .owner-transfer-form h5 { margin-bottom: 2px; font-size: .9rem; }

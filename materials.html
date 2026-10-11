@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f1f4f1">
+    <title>Lista de Materiales - MC Viewer</title>
+    <script src="src/js/theme-init.js"></script>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/admin-settings.css">
+    <link rel="stylesheet" href="src/css/theme_light.css">
+    <link rel="stylesheet" href="src/css/theme_dark.css">
+    <link rel="stylesheet" href="src/css/theme_admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Librería para exportar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        body {
+            overflow-y: auto !important;
+            padding: 30px;
+            background-color: var(--bg-dark);
+        }
+
+        /* Contenedor extendido de extremo a extremo */
+        .container {
+            max-width: min(1540px, 100%) !important;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .header-card {
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-info { flex: 1 1 260px; min-width: 0; }
+        :root[data-theme] .materials-nav { flex: 0 1 auto; flex-basis: auto; align-self: auto; width: 100%; min-width: 0; margin: 0 auto 12px; justify-content: center; }
+        :root[data-theme] .materials-nav > a,
+        :root[data-theme] .materials-settings > summary,
+        :root[data-theme] .materials-nav > button.main-settings-nav-button { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 11px; border: 1px solid var(--control-border); border-radius: 8px; background: var(--control-bg); color: var(--text-main); font: 600 .78rem Inter, sans-serif; text-decoration: none; white-space: nowrap; cursor: pointer; transition: color .16s ease, border-color .16s ease, background-color .16s ease, transform .16s ease; }
+        :root[data-theme] .materials-nav > a,
+        :root[data-theme] .materials-settings > summary,
+        :root[data-theme] .materials-nav > button.main-settings-nav-button { gap: 7px; }
+        :root[data-theme] .materials-nav svg { width: 16px; height: 16px; flex: 0 0 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        :root[data-theme] .materials-settings-menu > a svg { width: 15px; height: 15px; flex: 0 0 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .materials-settings > summary { list-style: none; }
+        .materials-settings > summary::-webkit-details-marker { display: none; }
+        :root[data-theme] .materials-nav > a:hover,
+        :root[data-theme] .materials-settings > summary:hover,
+        :root[data-theme] .materials-settings[open] > summary,
+        :root[data-theme] .materials-nav > button.main-settings-nav-button:hover,
+        :root[data-theme] .materials-nav > button.main-settings-nav-button[aria-expanded="true"] { border-color: var(--primary); background: var(--control-hover); color: var(--primary); box-shadow: 0 3px 10px rgba(0,0,0,.12); transform: translateY(-1px); }
+        :root[data-theme] .materials-nav > a:active,
+        :root[data-theme] .materials-settings > summary:active,
+        :root[data-theme] .materials-nav > button.main-settings-nav-button:active { transform: translateY(0); box-shadow: none; }
+        :root[data-theme] .materials-nav > a[aria-current="page"] { border-color: var(--primary); background: var(--control-hover); color: var(--primary); }
+        :root[data-theme] .materials-nav > a:focus-visible,
+        :root[data-theme] .materials-settings > summary:focus-visible,
+        :root[data-theme] .materials-nav > button.main-settings-nav-button:focus-visible,
+        :root[data-theme] .materials-settings-menu a:focus-visible,
+        :root[data-theme] .materials-settings-menu select:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+        .materials-settings { position: relative; }
+        .materials-settings-menu { position: absolute; z-index: 20; top: calc(100% + 8px); right: 0; display: grid; min-width: 220px; gap: 10px; padding: 12px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-sidebar); color: var(--text-main); box-shadow: 0 12px 28px rgba(0,0,0,.2); }
+        .materials-settings-menu[hidden] { display: none; }
+        :root[data-theme] .materials-settings-menu > a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 10px; border: 1px solid var(--control-border); border-radius: 7px; background: var(--control-bg); color: var(--text-main); font-size: .8rem; text-decoration: none; }
+        :root[data-theme] .materials-settings-menu > a:hover { border-color: var(--primary); background: var(--control-hover); color: var(--primary); }
+        :root[data-theme] .materials-settings-menu .site-theme-control { display: grid; gap: 6px; margin: 0; color: var(--text-muted); }
+        :root[data-theme] .materials-settings-menu .site-theme-control select { width: 100%; min-height: 36px; border-color: var(--control-border); background: var(--control-bg); color: var(--text-main); }
+
+/* Cuadro independiente para la botonera de acciones */
+        .actions-card {
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .actions-card button {
+            padding: 10px 18px;
+            color: #fff;
+            border: 1px solid var(--primary);
+            background: var(--primary);
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        .actions-card button:hover {
+            background: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .actions-card button:active {
+            transform: scale(0.98);
+        }
+
+        .header-info h1 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+        .header-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+        
+        /* Cuadrícula adaptativa responsiva */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+            gap: clamp(12px, 1.2vw, 18px);
+            width: 100%;
+        }
+
+        /* Tarjeta de bloque ajustada */
+        .material-card {
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0; /* Permite que el contenido interno se adapte dinámicamente */
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .material-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            }
+            
+        /* Contenedor de texto con ajuste de nombres largos */
+        .material-meta {
+            flex: 1;
+            min-width: 0; /* Evita que textos largos empujen los números fuera de la tarjeta */
+        }
+
+        .material-img-box {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+        }
+        .material-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+        .material-meta h3 {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Añade "..." si el nombre del bloque es demasiado largo */
+        }
+
+        .material-meta span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            display: block;
+                white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Cifra de la cantidad blindada */
+        .material-count {
+            margin-left: auto;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap; /* Garantiza que los números de 4 o más cifras jamás se corten */
+            flex-shrink: 0;     /* Impide que el cuadro lo comprima */
+            padding-left: 6px;
+        }
+
+        /* Ajustes de presentación que conservan la paleta activa. */
+        body {
+            min-height: 100vh;
+            padding: clamp(16px, 3vw, 38px);
+            background: var(--bg-dark);
+        }
+
+        .container {
+            max-width: min(1540px, 100%) !important;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        .header-card,
+        .actions-card {
+            border-color: var(--border-color);
+            border-radius: 14px;
+            background: var(--bg-sidebar);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+        }
+
+        .header-card {
+            min-height: 112px;
+            padding: 22px 26px;
+        }
+
+        .header-info h1 {
+            font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+            letter-spacing: -0.035em;
+        }
+
+        .header-info p {
+            line-height: 1.7;
+        }
+
+        .header-info strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .actions-card {
+            padding: 12px 15px;
+            gap: 9px;
+            background: var(--bg-sidebar);
+            box-shadow: none;
+        }
+
+        .actions-card button {
+            min-height: 39px;
+            padding: 9px 14px;
+            border: 1px solid var(--control-border);
+            border-radius: 9px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.82rem;
+            box-shadow: none;
+        }
+
+        .actions-card button:hover {
+            opacity: 1;
+        }
+
+        .search-box {
+            margin: 0 0 16px;
+        }
+
+        .search-input {
+            min-height: 48px;
+            border-color: var(--control-border);
+            border-radius: 11px;
+            background: var(--control-bg);
+            box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+
+        .materials-grid {
+            gap: 12px;
+        }
+
+        .material-card {
+            min-height: 76px;
+            padding: 11px 13px;
+            border-color: var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-sidebar);
+            transition: border-color 0.18s ease, background-color 0.18s ease;
+        }
+
+        .material-card:hover {
+            transform: none;
+            border-color: var(--primary);
+            background: var(--control-hover);
+        }
+
+        .material-img-box {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            padding: 3px;
+            border-color: var(--border-color);
+            border-radius: 9px;
+            background: var(--bg-dark);
+        }
+
+        .material-meta h3 {
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .material-meta span {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+        }
+
+        .material-count {
+            padding: 4px 8px;
+            border-radius: 7px;
+            background: var(--control-bg);
+            color: var(--primary);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 14px; }
+            .header-card { padding: 18px; align-items: flex-start; }
+            :root[data-theme] .materials-nav { flex: 1 1 100%; margin: 0 auto 12px; justify-content: center; overflow: visible; flex-wrap: wrap; padding: 3px 0 6px; }
+            .actions-card { align-items: stretch; }
+            .actions-card button { flex: 1 1 100%; justify-content: center; }
+            .materials-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="materials-page">
+    <div class="container">
+        <nav class="materials-nav site-primary-nav" aria-label="Navegación principal">
+            <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/></svg><span>Inicio</span></a>
+            <a href="explore.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/></svg><span>Explorar</span></a>
+            <a href="materials.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg><span>Materiales</span></a>
+            <a href="profile.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span>Mi perfil</span></a>
+            <button class="main-settings-nav-button" type="button" data-settings-open aria-haspopup="dialog" aria-expanded="false" aria-controls="settingsPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span>Configuración</span></button>
+        </nav>
+        <!-- 1. Cuadro de Información Principal -->
+        <div class="header-card">
+            <div class="header-info">
+                <h1 id="matFileName">Lista de Materiales</h1>
+                <p><span id="labelDimensions">Dimensiones</span>: <strong id="matDimensions">0 x 0 x 0</strong> | <span id="labelTotalBlocks">Total de Bloques</span>: <strong id="matTotalBlocks">0</strong></p>
+            </div>
+        </div>
+
+        <!-- 2. Cuadro de Botones de Acción (Separado) -->
+        <div class="actions-card">
+            <button id="btnPlanos" onclick="window.location.href='viewer.html'">
+                📐 Planos / Visor 3D
+            </button>
+            <button id="btnPrintPlanos">
+                📄 Descargar Planos (Capas)
+            </button>
+            <button id="btnExportar">
+                📄 Descargar Lista
+            </button>
+        </div>
+
+        <!-- 3. Cuadro del Buscador -->
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar bloque o ID (ej. Oak, Stone, Glass)...">
+        </div>
+
+        <div class="materials-grid" id="materialsGrid">
+            <!-- Los bloques se renderizan dinamicamente con JS -->
+        </div>
+    </div>
+
+    <!-- Estos son los cambios que hice, att. ChatGPT: carga los nombres vanilla Java localizados antes de crear la lista. -->
+    <script src="src/js/settings-component.js"></script>
+    <script src="src/js/theme.js"></script>
+    <script src="src/data/block-names.js"></script>
+    <script src="src/js/pages/materials.js?v=2"></script>
+</body>
+</html>
+

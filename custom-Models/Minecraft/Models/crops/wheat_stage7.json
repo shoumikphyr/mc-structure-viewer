@@ -1,0 +1,72 @@
+{
+	"format_version": "26.3",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "block/wheat_stage7",
+		"particle": "block/wheat_stage7"
+	},
+	"elements": [
+		{
+			"name": "este",
+			"from": [12, 0, 0],
+			"to": [12.1, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 0, 13]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "rotation":180, "texture": "#0"},
+				"south": {"uv": [0, 0, 0.1, 16], "texture": "#missing"},
+				"west": {"uv": [16, 0, 0, 16], "rotation":180, "texture": "#0"},
+				"down": {"uv": [0, 0, 0.1, 16], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "oeste",
+			"from": [4, 0, 0],
+			"to": [3.9, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 1]},
+			"faces": {
+				"north": {"uv": [0.9, 0, 1, 16], "texture": "#missing"},
+				"east": {"uv": [16, 0, 0, 16], "rotation":180, "texture": "#0"},
+				"south": {"uv": [2, 0, 2.1, 16], "texture": "#missing"},
+				"west": {"uv": [0, 0, 16, 16], "rotation":180, "texture": "#0"},
+				"up": {"uv": [2, 0, 2.1, 16], "texture": "#missing"},
+				"down": {"uv": [2, 0, 2.1, 16], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "norte",
+			"from": [0, 0, 4],
+			"to": [16, 16, 3.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 0, 2]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "rotation":180, "texture": "#0"},
+				"east": {"uv": [1, 0, 0, 16], "texture": "#missing"},
+				"south": {"uv": [16, 0, 0, 16], "rotation":180, "texture": "#0"},
+				"west": {"uv": [15, 0, 14, 16], "texture": "#missing"},
+				"up": {"uv": [16, 0, 0, 1], "texture": "#missing"},
+				"down": {"uv": [16, 1, 0, 0], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "sur",
+			"from": [0, 0, 12],
+			"to": [16, 16, 12.1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 11]},
+			"faces": {
+				"north": {"uv": [16, 0, 0, 16], "rotation":180, "texture": "#0"},
+				"east": {"uv": [0.9, 0, 1, 16], "texture": "#missing"},
+				"south": {"uv": [0, 0, 16, 16], "rotation":180, "texture": "#0"},
+				"west": {"uv": [1, 0, 1.1, 16], "texture": "#missing"},
+				"down": {"uv": [0, 0.9, 16, 1], "texture": "#missing"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#100e14">
+    <meta name="description" content="Organiza, guarda y explora tus estructuras de Minecraft en 3D.">
+    <title>MC Viewer — Tu taller de estructuras</title>
+    <script src="src/js/theme-init.js"></script>
+    <script src="src/js/default-page.js"></script>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/home.css">
+    <link rel="stylesheet" href="src/css/admin-settings.css">
+    <link rel="stylesheet" href="src/css/theme_light.css">
+    <link rel="stylesheet" href="src/css/theme_dark.css">
+    <link rel="stylesheet" href="src/css/theme_admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-page">
+    <div class="home-shell">
+        <header class="home-header">
+            <a class="home-brand" href="index.html" aria-label="MC Viewer inicio">
+                <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <span>MC <b>Viewer</b></span>
+            </a>
+            <nav class="home-nav site-primary-nav" aria-label="Navegación principal">
+                <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/></svg><span>Inicio</span></a>
+                <a href="explore.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/></svg><span>Explorar</span></a>
+                <a href="materials.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg><span>Materiales</span></a>
+                <a href="profile.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span>Mi perfil</span></a>
+                <button class="main-settings-nav-button" id="mainSettingsToggleBtn" data-settings-open type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="settingsPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span>Configuración</span></button>
+            </nav>
+            <div class="header-controls"><a class="header-account-link" href="#cuenta">Iniciar sesión / registrarse <span class="account-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></span></a></div>
+        </header>
+
+        <main>
+            <section class="home-hero" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span> TU TALLER DE CONSTRUCCIÓN</div>
+                    <h1 id="hero-title">Imagina el espacio.<br><em>Construye en bloques.</em></h1>
+                    <p class="hero-description">Abre tus archivos de Minecraft en 3D, revisa cada detalle y conserva tus estructuras en un solo lugar.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="viewer.html">Abrir el visor <span aria-hidden="true">↗</span></a>
+                        <a class="button button-quiet" id="createAccountLink" href="#cuenta">Crear mi espacio <span aria-hidden="true">↓</span></a>
+                    </div>
+                    <div class="format-note"><span>.SCHEM</span><i></i><span>.LITEMATIC</span><i></i><span>JAVA 1.21.7</span></div>
+                </div>
+
+                <div class="hero-art" aria-label="Vista de una construcción por bloques">
+                    <div class="art-topline"><span>VISTA DE CONSTRUCCIÓN</span><span>01 / 03</span></div>
+                    <div class="voxel-scene" aria-hidden="true">
+                        <div class="scene-grid"></div>
+                        <div class="voxel voxel-back"></div>
+                        <div class="voxel voxel-left"></div>
+                        <div class="voxel voxel-center"></div>
+                        <div class="voxel voxel-front"></div>
+                        <div class="scene-spark spark-one"></div>
+                        <div class="scene-spark spark-two"></div>
+                    </div>
+                    <div class="art-caption"><span class="caption-icon">✳</span><div><strong>De archivo a mundo</strong><small>Explora tus ideas en tres dimensiones</small></div><span class="caption-arrow">↗</span></div>
+                </div>
+            </section>
+
+            <section class="feature-strip" aria-label="Funciones del visor">
+                <article class="feature-item"><span class="feature-number">01</span><div><h2>Explora</h2><p>Gira y recorre tus estructuras en 3D.</p></div></article>
+                <article class="feature-item"><span class="feature-number">02</span><div><h2>Personaliza</h2><p>Prueba paquetes de texturas locales.</p></div></article>
+                <article class="feature-item"><span class="feature-number">03</span><div><h2>Organiza</h2><p>Guarda tus archivos en tu biblioteca.</p></div></article>
+            </section>
+
+            <section class="account-section" id="cuenta" aria-labelledby="account-title">
+                <div class="section-heading">
+                    <div><div class="eyebrow"><span class="eyebrow-dot"></span> TU ESPACIO PERSONAL</div><h2 id="account-title">Tus construcciones,<br><em>siempre a mano.</em></h2></div>
+                    <p>Crea tu perfil, organiza tus archivos .schem y .litematic, y decide cuáles quieres compartir con la comunidad.</p>
+                </div>
+
+                <div class="account-layout">
+                    <div class="account-card" id="authCard">
+                        <div class="auth-tabs" role="tablist" aria-label="Acceso a la cuenta">
+                            <button class="auth-tab active" type="button" role="tab" aria-selected="true" data-auth-mode="login">Iniciar sesión</button>
+                            <button class="auth-tab" type="button" role="tab" aria-selected="false" data-auth-mode="register">Crear cuenta</button>
+                        </div>
+                        <section class="remembered-accounts" id="rememberedAccounts" aria-label="Sesiones guardadas" hidden>
+                            <h3>Cuentas guardadas en este dispositivo</h3>
+                            <p>Selecciona una cuenta para abrir el inicio de sesión. Tendrás que escribir tu contraseña.</p>
+                            <div class="remembered-account-list" id="rememberedAccountList"></div>
+                        </section>
+                        <form id="authForm" class="auth-form">
+                            <label for="authUsername">Nombre de usuario</label>
+                            <input id="authUsername" name="username" type="text" minlength="3" maxlength="20" autocomplete="username" placeholder="Tu usuario" required>
+                            <label for="authPassword">Contraseña</label>
+                            <input id="authPassword" name="password" type="password" minlength="8" maxlength="128" autocomplete="current-password" placeholder="Mínimo 8 caracteres" required>
+                            <div id="confirmField" class="confirm-field" hidden><label for="authConfirm">Repite la contraseña</label><input id="authConfirm" name="confirm" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="Escríbela otra vez"></div>
+                            <button class="button button-primary auth-submit" id="authSubmit" type="submit">Entrar <span aria-hidden="true">→</span></button>
+                            <p class="form-note" id="authNotice" role="status" aria-live="polite">Tu cuenta guarda tus estructuras en este servidor.</p>
+                        </form>
+                    </div>
+
+                    <div class="account-card login-challenge-card" id="loginChallengeCard" hidden>
+                        <span class="dashboard-overline">VERIFICACIÓN DE SEGURIDAD</span>
+                        <h3 id="challengeTitle">Confirma el inicio de sesión</h3>
+                        <p class="form-note" id="challengeNotice" role="status" aria-live="polite"></p>
+                        <form id="setupEmailRequestForm" class="auth-form" hidden>
+                            <label for="setupEmail">Correo electrónico</label>
+                            <input id="setupEmail" type="email" maxlength="254" autocomplete="email" placeholder="nombre@dominio.com" required>
+                            <button class="button button-primary" type="submit">Enviar código</button>
+                        </form>
+                        <form id="setupEmailVerifyForm" class="auth-form" hidden>
+                            <label for="setupEmailCode">Código recibido</label>
+                            <input id="setupEmailCode" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required>
+                            <button class="button button-primary" type="submit">Verificar y continuar</button>
+                        </form>
+                        <form id="loginCodeForm" class="auth-form" hidden>
+                            <label for="loginCode">Código recibido</label>
+                            <input id="loginCode" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required>
+                            <button class="button button-primary" type="submit">Verificar e iniciar sesión</button>
+                            <button class="text-button" id="resendLoginCode" type="button">Enviar otro código</button>
+                        </form>
+                        <button class="text-button" id="cancelLoginChallenge" type="button">Cancelar</button>
+                    </div>
+                    <div class="account-card account-dashboard signed-in-card" id="dashboard" hidden>
+                        <div class="dashboard-head"><div><span class="dashboard-overline">SESIÓN ACTIVA</span><h3>Hola, <span id="dashboardUsername">constructor</span>.</h3></div><button class="text-button" id="logoutButton" type="button">Cerrar sesión <span aria-hidden="true">↗</span></button></div>
+                        <p class="signed-in-role" id="dashboardRole"></p>
+                        <p class="form-note">Tu biblioteca, opciones de cuenta y perfil están en tu espacio personal.</p>
+                        <a class="button button-primary" href="profile.html">Abrir mi perfil <span aria-hidden="true">↗</span></a>
+                    </div>
+
+
+                    <aside class="account-aside">
+                        <span class="aside-spark" aria-hidden="true">✳</span>
+                        <h3>Tu archivo<br>merece un espacio.</h3>
+                        <p>Revisa una construcción antes de llevarla a tu mundo. Ajusta la vista, compara bloques y vuelve cuando quieras.</p>
+                        <a href="viewer.html" class="aside-link">Conocer el visor <span aria-hidden="true">↗</span></a>
+                        <div class="aside-index"><span>MCV</span><span>EST. 2026</span></div>
+                    </aside>
+                </div>
+            </section>
+
+            <section class="social-section" id="redes" aria-labelledby="social-title">
+                <div class="social-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> TAMBIÉN POR AQUÍ</div><h2 id="social-title">Mis redes<span>.</span></h2><p>Encuéntrame fuera del mundo de bloques.</p></div>
+                <div class="social-links" id="socialLinks" aria-label="Redes sociales"></div>
+            </section>
+        </main>
+
+        <footer class="home-footer"><a class="home-brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>MC <b>Viewer</b></span></a><span class="footer-credit">Hecho por <strong>shoumikphyr</strong></span><a href="viewer.html">Entrar al visor <span aria-hidden="true">↗</span></a></footer>
+        
+    </div>
+    <script src="src/js/settings-component.js"></script>
+    <script src="src/js/theme.js"></script>
+    <script src="src/js/session-menu.js"></script>
+
+    <script src="src/data/social-links.js"></script>
+    <script src="src/js/pages/home.js"></script>
+</body>
+</html>

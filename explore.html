@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#100e14">
+    <meta name="description" content="Busca construcciones de Minecraft compartidas por la comunidad y ábrelas en el visor 3D.">
+    <title>Explora construcciones — MC Viewer</title>
+    <script src="src/js/theme-init.js"></script>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/home.css">
+    <link rel="stylesheet" href="src/css/profile.css">
+    <link rel="stylesheet" href="src/css/admin-settings.css">
+    <link rel="stylesheet" href="src/css/theme_light.css">
+    <link rel="stylesheet" href="src/css/theme_dark.css">
+    <link rel="stylesheet" href="src/css/theme_admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-page profile-page">
+    <div class="profile-shell">
+        <header class="profile-header">
+            <a class="home-brand" href="index.html" aria-label="MC Viewer inicio"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>MC <b>Viewer</b></span></a>
+            <nav class="profile-nav site-primary-nav" aria-label="Navegación principal"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/></svg><span>Inicio</span></a><a href="explore.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/></svg><span>Explorar</span></a><a href="materials.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg><span>Materiales</span></a><a href="profile.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span>Mi perfil</span></a><button class="main-settings-nav-button" type="button" data-settings-open aria-haspopup="dialog" aria-expanded="false" aria-controls="settingsPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span>Configuración</span></button></nav>
+        </header>
+        <main>
+            <p class="profile-status" id="pageStatus" role="status" aria-live="polite">Cargando construcciones…</p>
+            <section class="profile-section explore-section" aria-labelledby="exploreTitle">
+                <div class="profile-section-heading explore-heading"><div><span class="profile-kicker">HECHO POR LA COMUNIDAD</span><h2 id="exploreTitle">Explora construcciones</h2></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="structureSearch" type="search" placeholder="Buscar por estructura o usuario…" autocomplete="off"><kbd>/</kbd></label></div>
+                <div class="structure-grid" id="searchResults" aria-live="polite"></div>
+                <p class="profile-empty" id="searchEmpty" hidden>No encontramos construcciones con esa búsqueda.</p>
+            </section>
+        </main>
+        <footer class="profile-footer"><a class="home-brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>MC <b>Viewer</b></span></a><span>Hecho por <strong>shoumikphyr</strong></span><a href="viewer.html">Abrir visor <span aria-hidden="true">↗</span></a></footer>
+    </div>
+    <script src="src/js/settings-component.js"></script>
+    <script src="src/js/theme.js"></script>
+    <script src="src/js/pages/explore.js"></script>
+</body>
+</html>
